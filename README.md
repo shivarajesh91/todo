@@ -201,13 +201,14 @@ Disable Hosting:
 
 Category Page and Footer:
 
-![category page](images\category-page.png)
+![category page](https://github.com/shivarajesh91/todo/blob/Development/images/category-page.png)
+
 ---
-![category page footer](images\category-page2.png)
+![category page footer](https://github.com/shivarajesh91/todo/blob/Development/images/category-page2.png)
 
 Todo Page:
 
-![todo page](images\todo-page.png)
+![todo page](https://github.com/shivarajesh91/todo/blob/Development/images/todo-page.png)
 <hr>
 ## Reference
 
