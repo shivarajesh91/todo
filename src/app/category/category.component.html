@@ -1,0 +1,62 @@
+<div class="row justify-content-center md-3">
+  <div class="col-md-6 text-center">
+    <h1>TODO CATEGORIES</h1>
+    <p class="text-info">
+      Todo categories help break down your task list into manageable sections based on context, urgency, or type of activity.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" class="form-display">
+      <div class="col-12 col-md-3 form-group">
+        <input type="text" placeholder="Add New Categories here" name="categoryName" 
+        class="form-control-plaintext drop-shadow" [(ngModel)]="categoryName" required #category="ngModel" 
+        [ngClass]="{'border-danger': f.submitted && category.invalid}">
+      </div>
+      <div class="col-12 col-md-7 form-group">
+        <input type="text" placeholder="Category Description here" name="categoryDesc" 
+        class="form-control-plaintext drop-shadow" [(ngModel)]="categoryDesc" required #categorydesc="ngModel" 
+        [ngClass]="{'border-danger': f.submitted && categorydesc.invalid}">
+      </div>
+      <button type="submit" class="btn btn-primary col-12 col-md-2 btn-todo btn-block drop-shadow"> {{ dataStatus }} </button>
+    </form>
+    @if(f.submitted && category.invalid && category.errors?.['required']){
+      <div class="text-danger ml-3">
+        Category is Required.
+      </div>
+    }
+    @if(f.submitted && categorydesc.invalid && categorydesc.errors?.['required']){
+      <div class="text-danger ml-3">
+        Category Description is Required.
+      </div>
+    }
+  </div>
+</div>
+
+<div class="row categories-list">
+  @for (category of categories; track $index) {
+    <div class="col-md-3">
+      <div class="card drop-shadow" [style.border-left-color]="category.colorCode">
+        <div class="card-body">
+          <div class="clearfix">
+            <div class="float-start">
+              <div class="badge bg-primary"> CATEGORY </div>
+            </div>
+            <div class="float-end cat-tools">
+              <small><i class="fas fa-pencil-alt text-success" (click)="onEdit(category.category, category.categoryDesc, category.id)"></i></small>
+              <small><i class="fas fa-trash text-danger" (click)="onDelete(category.id)"></i></small>
+            </div>
+          </div>
+  
+          <div class="todo-content" [routerLink]="['/todo', category.id]">
+            <h3 [style.color]="category.colorCode">{{ category.category }}</h3>
+            <small class="text-secondary">{{ category.categoryDesc }}</small>
+          </div>
+          <span class="badge bg-danger">{{ category.todoCount}} - Todos</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>

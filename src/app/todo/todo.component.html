@@ -1,0 +1,75 @@
+<div class="col-md-12">
+  <div class="clearfix">
+    <div class="float-end back-tool">
+      <i class="fas fa-arrow-left text-danger" routerLink="/"></i>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center md-3">
+  <div class="col-md-6 text-center">
+    <h1>TODOS</h1>
+    <p class="text-info">
+      A Todo is a list of tasks or actions you plan to complete, often used to stay organized and productive.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" class="form-display">
+      <div class="col-12 col-md-10 form-group">
+        <input type="text" placeholder="Add New Todos here" name="todoText" class="form-control-plaintext drop-shadow"
+        [(ngModel)]="todoValue" required #todo="ngModel" [ngClass]="{'border-danger': f.submitted && todo.invalid}">
+      </div>
+      <button type="submit" class="btn btn-primary col-12 col-md-2 btn-todo btn-block drop-shadow"> {{ dataStatus }} </button>
+    </form>
+    @if(f.submitted && todo.invalid && todo.errors?.['required']){
+      <div class="text-danger ml-3">
+        Todo is Required.
+      </div>
+    }
+  </div>
+</div>
+
+<div class="row justify-content-center todo-list">
+  <div class="col-md-6">
+    @for (todo of todos; track $index) {
+      <div class="card">
+        <div class="card-body">
+          <div class="clearfix">
+            <div class="float-start text-secondary">
+              @if (!todo.isCompleted) {
+                <i class="far fa-circle text-danger"></i>
+              }
+              @if (todo.isCompleted) {
+                <i class="fas fa-check text-success"></i>
+              }
+              <span [ngClass]="{'todo-completed': todo.isCompleted}"> {{ todo.todo }} </span>
+              <!-- @if(todo.isCompleted){
+                <hr>
+              } -->
+            </div>
+  
+            <div class="float-end">
+              @if (!todo.isCompleted) {
+                <i class="far fa-check-circle text-success" (click)="completeTodo(todo.id)"></i>
+              }
+              @if (todo.isCompleted) {
+                <i class="far fa-times-circle text-danger" (click)="uncompleteTodo(todo.id)"></i>
+              }
+              <div class="todo-tools">
+                <small>
+                  <i class="fas fa-pencil-alt text-warning" (click)="onEdit(todo.todo, todo.id)"></i>
+                  <i class="fas fa-trash text-danger" (click)="onDelete(todo.id)"></i>
+                </small>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
